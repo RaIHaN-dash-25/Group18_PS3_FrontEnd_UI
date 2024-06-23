@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaccine Analytics</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #00CFB4;
+            color: white;
+            text-align: center;
+            padding: 1em 0;
+        }
+
+        main {
+            padding: 2em;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .analytics-section {
+            margin-bottom: 2em;
+        }
+
+        .section-title {
+            color: #333;
+            font-size: 1.5em;
+            margin-bottom: 0.5em;
+        }
+
+        .summary-cards {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 2em;
+        }
+
+        .card {
+            background-color: white;
+            padding: 1em;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+            width: 30%;
+        }
+
+        .card h3 {
+            margin: 0;
+            color: #00cfb4;
+        }
+
+        .card p {
+            font-size: 1.2em;
+            color: #333;
+            margin: 0.5em 0 0;
+        }
+
+        canvas {
+            background-color: white;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            padding: 1em;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1em 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+    <!-- Include Chart.js from CDN for charting -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Vaccine Requirement Analytics Dashboard</h1>
+    </header>
+    <main>
+        <section class="analytics-section">
+            <h2 class="section-title">Overview</h2>
+            <div class="summary-cards">
+                <div class="card">
+                    <h3>Total Vaccines Administered</h3>
+                    <p>850,000</p>
+                </div>
+                <div class="card">
+                    <h3>Government-Subsidized Vaccines</h3>
+                    <p>600,000</p>
+                </div>
+                <div class="card">
+                    <h3>Paid Vaccines</h3>
+                    <p>250,000</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="analytics-section">
+            <h2 class="section-title">Vaccination Demand Trends</h2>
+            <canvas id="vaccineTrendsChart"></canvas>
+        </section>
+
+        <section class="analytics-section">
+            <h2 class="section-title">In Stock vs. Used</h2>
+            <canvas id="vaccineComparisonChart"></canvas>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Vaccine Analytics. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Vaccine Trends Chart
+        const vaccineTrendsCtx = document.getElementById('vaccineTrendsChart').getContext('2d');
+        const vaccineTrendsChart = new Chart(vaccineTrendsCtx, {
+            type: 'line',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+                datasets: [
+                    {
+                        label: 'Subsidized Vaccines Demand',
+                        data: [50000, 75000, 90000, 120000, 150000, 180000],
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    },
+                    {
+                        label: 'Paid Vaccines Demand',
+                        data: [20000, 25000, 30000, 35000, 40000, 45000],
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgb(255, 99, 132)',
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true
+            }
+        });
+
+        // Vaccine Comparison Chart
+        const vaccineComparisonCtx = document.getElementById('vaccineComparisonChart').getContext('2d');
+        const vaccineComparisonChart = new Chart(vaccineComparisonCtx, {
+            type: 'pie',
+            data: {
+                labels: ['In Stock', 'used'],
+                datasets: [{
+                    data: [2000000, 850000],
+                    backgroundColor: [
+                        'rgb(0, 207, 180)',
+                        'rgb(255, 99, 132)'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true
+            }
+        });
+    </script>
+</body>
+</html>
