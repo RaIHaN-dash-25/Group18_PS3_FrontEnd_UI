@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaccination Analytics Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+        .dashboard {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .chart-container {
+            margin: 20px 0;
+        }
+        canvas {
+            width: 100% !important;
+            max-width: 800px;
+            height: 400px;
+        }
+        .filter {
+            margin: 10px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: space-between;
+        }
+        .filter label {
+            margin-top: 10px;
+            color: #333;
+        }
+        .filter input, .filter select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Vaccination Analytics Dashboard</h2>
+    <div class="dashboard">
+        <div class="filter">
+            <label for="dateRange">Date Range:</label>
+            <input type="date" id="startDate"> to <input type="date" id="endDate">
+
+            <label for="ageGroup">Age Group:</label>
+            <select id="ageGroup">
+                <option value="all">All</option>
+                <option value="0-1">0-1 year</option>
+                <option value="1-5">1-5 years</option>
+                <option value="5-10">5-10 years</option>
+                <option value="10-18">10-18 years</option>
+            </select>
+
+            <label for="vaccineType">Vaccine Type:</label>
+            <select id="vaccineType">
+                <option value="all">All</option>
+                <option value="measles">Measles</option>
+                <option value="mumps">Mumps</option>
+                <option value="rubella">Rubella</option>
+                <!-- Add more vaccines as needed -->
+            </select>
+
+            <label for="gender">Gender:</label>
+            <select id="gender">
+                <option value="all">All</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+
+        <div class="chart-container">
+            <h3>Total Number of Children Vaccinated</h3>
+            <canvas id="totalVaccinatedChart"></canvas>
+        </div>
+
+        <div class="chart-container">
+            <h3>Percentage of Vaccinated Children by Age Group</h3>
+            <canvas id="ageGroupChart"></canvas>
+        </div>
+
+        <div class="chart-container">
+            <h3>Vaccination Coverage by Vaccine Type</h3>
+            <canvas id="vaccineTypeChart"></canvas>
+        </div>
+
+        <div class="chart-container">
+            <h3>Schedule Adherence Rate</h3>
+            <canvas id="scheduleAdherenceChart"></canvas>
+        </div>
+
+        <div class="chart-container">
+            <h3>Common Adverse Reactions</h3>
+            <canvas id="adverseReactionsChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // Example data for charts
+        const totalVaccinatedData = {
+            labels: ['January', 'February', 'March', 'April', 'May'],
+            datasets: [{
+                label: 'Total Vaccinated',
+                data: [120, 150, 170, 140, 190],
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        const ageGroupData = {
+            labels: ['0-1 year', '1-5 years', '5-10 years', '10-18 years'],
+            datasets: [{
+                label: 'Age Group Distribution',
+                data: [20, 50, 80, 40],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        const vaccineTypeData = {
+            labels: ['Measles', 'Mumps', 'Rubella'],
+            datasets: [{
+                label: 'Vaccine Type Distribution',
+                data: [60, 50, 30],
+                backgroundColor: [
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 205, 86, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 205, 86, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        const scheduleAdherenceData = {
+            labels: ['January', 'February', 'March', 'April', 'May'],
+            datasets: [{
+                label: 'Schedule Adherence',
+                data: [90, 85, 88, 92, 95],
+                backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                borderColor: 'rgba(255, 206, 86, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        const adverseReactionsData = {
+            labels: ['Measles', 'Mumps', 'Rubella'],
+            datasets: [{
+                label: 'Adverse Reactions',
+                data: [5, 2, 3],
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        // Render charts
+        const totalVaccinatedChart = new Chart(document.getElementById('totalVaccinatedChart'), {
+            type: 'bar',
+            data: totalVaccinatedData
+        });
+
+        const ageGroupChart = new Chart(document.getElementById('ageGroupChart'), {
+            type: 'pie',
+            data: ageGroupData
+        });
+
+        const vaccineTypeChart = new Chart(document.getElementById('vaccineTypeChart'), {
+            type: 'doughnut',
+            data: vaccineTypeData
+        });
+
+        const scheduleAdherenceChart = new Chart(document.getElementById('scheduleAdherenceChart'), {
+            type: 'line',
+            data: scheduleAdherenceData
+        });
+
+        const adverseReactionsChart = new Chart(document.getElementById('adverseReactionsChart'), {
+            type: 'bar',
+            data: adverseReactionsData
+        });
+    </script>
+</body>
+</html>

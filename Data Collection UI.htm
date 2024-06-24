@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Child Vaccination History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #3334;
+        }
+        form {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background: #ff8;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        h3 {
+            color: #555;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            color: #333;
+        }
+        input, select, textarea, button {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="date"], input[type="number"] {
+            width: 100%;
+        }
+        textarea {
+            resize: vertical;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .form-section {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Child Vaccination History</h2>
+    <form id="vaccinationForm">
+        <div class="form-section">
+            <h3>Child's Personal Information</h3>
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob" required>
+
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+
+            <label for="address">Address:</label>
+            <textarea id="address" name="address" rows="3" required></textarea>
+
+            <label for="contact">Parent/Guardian Contact Information:</label>
+            <input type="text" id="contact" name="contact" required>
+        </div>
+
+        <div class="form-section">
+            <h3>Vaccination Details</h3>
+            <label for="vaccine">Vaccine Name:</label>
+            <input type="text" id="vaccine" name="vaccine" required>
+
+            <label for="date">Date of Vaccination:</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="dose">Dose Number:</label>
+            <input type="number" id="dose" name="dose" required>
+            
+            <label for="provider">Healthcare Provider:</label>
+            <input type="text" id="provider" name="provider" required>
+
+            <label for="location">Location of Vaccination:</label>
+            <input type="text" id="location" name="location" required>
+
+            <label for="lot">Lot Number:</label>
+            <input type="text" id="lot" name="lot">
+
+            <label for="expiry">Expiry Date:</label>
+            <input type="date" id="expiry" name="expiry">
+
+            <label for="reactions">Adverse Reactions:</label>
+            <textarea id="reactions" name="reactions" rows="3"></textarea>
+
+            <label for="nextDose">Next Scheduled Dose:</label>
+            <input type="date" id="nextDose" name="nextDose">
+
+            <label for="comments">Notes/Comments:</label>
+            <textarea id="comments" name="comments" rows="3"></textarea>
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
